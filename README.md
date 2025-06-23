@@ -4,11 +4,11 @@
 ![Normalization](https://img.shields.io/badge/Normalization-3NF%2FBCNF-green)
 ![Data Quality](https://img.shields.io/badge/Data%20Quality-Production%20Ready-brightgreen)
 
-## 📊 Project Overview
+## Project Overview
 
 **KartRider Analytics** is a comprehensive database design for a kart racing game analytics system. This project demonstrates advanced database normalization techniques, implementing **Third Normal Form (3NF)** and **Boyce-Codd Normal Form (BCNF)** standards to ensure data integrity and optimal performance.
 
-### 🎯 Key Features
+### Key Features
 
 - **Fully Normalized Schema**: Eliminates redundancy through proper 3NF/BCNF decomposition
 - **Comprehensive Data Model**: Covers players, races, karts, tracks, achievements, and performance analytics
@@ -16,7 +16,7 @@
 - **Performance Optimized**: Strategic indexing for query optimization
 - **Constraint Complete**: Full referential integrity with foreign keys and check constraints
 
-## 🗃️ Database Architecture
+## Database Architecture
 
 ### Core Entity Relationships
 
@@ -31,7 +31,7 @@ Track (1:M) → Race
 Achievement (M:M) ↔ Player (via PlayerAchievement)
 ```
 
-### 📋 Table Structure
+### Table Structure
 
 | **Player Hierarchy** | **Racing Core** | **Game Assets** |
 |---------------------|----------------|-----------------|
@@ -41,7 +41,7 @@ Achievement (M:M) ↔ Player (via PlayerAchievement)
 | `GuestPlayer` | `Track` | `ItemKart` |
 | `PlayerAchievement` | | `Achievement` |
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - MySQL 8.0+ or MariaDB 10.4+
@@ -81,9 +81,9 @@ Achievement (M:M) ↔ Player (via PlayerAchievement)
    SELECT 'Participations', COUNT(*) FROM Participation;
    ```
 
-## 📊 Sample Queries & Analytics
+## Sample Queries & Analytics
 
-### 🏆 Player Performance Analysis
+### Player Performance Analysis
 ```sql
 -- Top 10 Players by Average Finishing Position
 SELECT 
@@ -100,7 +100,7 @@ ORDER BY AvgRank ASC
 LIMIT 10;
 ```
 
-### 🏎️ Kart Performance Statistics
+### Kart Performance Statistics
 ```sql
 -- Kart Win Rates and Usage
 SELECT 
@@ -120,7 +120,7 @@ HAVING TimesUsed >= 3
 ORDER BY WinRate DESC;
 ```
 
-### 🏁 Track Difficulty Analysis
+### Track Difficulty Analysis
 ```sql
 -- Average Completion Times by Track Difficulty
 SELECT 
@@ -135,7 +135,7 @@ GROUP BY t.TrackDifficulty
 ORDER BY AvgCompletionTime;
 ```
 
-### 🎖️ Achievement Progress
+### Achievement Progress
 ```sql
 -- Player Achievement Leaderboard
 SELECT 
@@ -151,16 +151,16 @@ ORDER BY TotalPoints DESC
 LIMIT 15;
 ```
 
-## 🔧 Database Features
+## Database Features
 
-### 🏗️ Normalization Implementation
+### 🏗Normalization Implementation
 
 **3NF Decomposition Examples:**
 - **Player** → **PlayerCredentials**: Separated to eliminate transitive dependencies (UserName → Email)
 - **Race** → **Track**: Removed partial dependencies (TrackName → TrackDifficulty, TrackLength)
 - **Kart** → **KartDetails**: Isolated manufacturer information to prevent update anomalies
 
-### 🛡️ Data Integrity Constraints
+### Data Integrity Constraints
 
 ```sql
 -- Ranking Constraints
@@ -173,14 +173,14 @@ TotalTime > 0 AND LapTime > 0
 FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
 ```
 
-### ⚡ Performance Optimization
+### Performance Optimization
 
 - **Primary Indexes**: All tables have optimized primary keys
 - **Foreign Key Indexes**: Automatic indexing on all foreign key relationships
 - **Composite Indexes**: `idx_player_performance (PlayerID, FinishingRank)`
 - **Query Optimization**: Indexed on frequently queried columns (RaceDate, DateEarned)
 
-## 📈 Data Distribution & Insights
+## Data Distribution & Insights
 
 ### Player Activity Levels
 - **Casual Players** (1-3 races): 40% of user base
@@ -197,7 +197,7 @@ FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
 - **Speed Karts**: 80% of fleet (High speed, moderate handling)
 - **Item Karts**: 20% of fleet (Moderate speed, item advantages)
 
-## 🔍 Advanced Analytics Capabilities
+## Advanced Analytics Capabilities
 
 ### Business Intelligence Queries
 - Player retention analysis
@@ -212,7 +212,7 @@ FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
 - Kart usage and effectiveness analysis
 - Track difficulty calibration data
 
-## 🛠️ Technical Specifications
+## Technical Specifications
 
 | **Component** | **Details** |
 |---------------|-------------|
@@ -224,7 +224,7 @@ FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
 | **Indexes** | 15+ optimized indexes |
 | **Constraints** | 25+ integrity constraints |
 
-## 📄 Documentation
+## Documentation
 
 ### File Structure
 ```
@@ -241,34 +241,5 @@ KartRiderAnalytics___DATABASE__.sql    # Complete database dump
 3. **Track Normalization**: Separate track properties from race instances
 4. **Achievement System**: Flexible point-based reward system
 5. **Performance Tracking**: Detailed lap-by-lap race analytics
-
-## 🤝 Contributing
-
-This database design follows academic database design principles and is suitable for:
-- Database design coursework and projects
-- Racing game development
-- Analytics system prototyping
-- SQL learning and practice
-
-## 📜 License
-
-This project is created for educational purposes as part of CS 5200 Database Systems coursework.
-
----
-
-**Export Information:**
-- **Generated**: June 23, 2025
-- **phpMyAdmin Version**: 5.2.1
-- **Server**: MariaDB 10.4.28
-- **Export Type**: Complete structure and data
-
-## 📞 Support
-
-For questions about the database design or implementation:
-- Review the normalization analysis documentation
-- Check the sample queries for usage examples
-- Examine constraint definitions for business rules
-
----
 
 *This database demonstrates production-ready design patterns suitable for high-performance gaming analytics platforms.*
