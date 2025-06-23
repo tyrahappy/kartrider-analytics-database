@@ -1,0 +1,1 @@
+# kartrider-analytics-database
