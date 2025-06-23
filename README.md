@@ -153,7 +153,7 @@ LIMIT 15;
 
 ## Database Features
 
-### 🏗Normalization Implementation
+### Normalization Implementation
 
 **3NF Decomposition Examples:**
 - **Player** → **PlayerCredentials**: Separated to eliminate transitive dependencies (UserName → Email)
