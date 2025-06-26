@@ -1,19 +1,47 @@
 <?php
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Include configuration file
 require_once 'config.php';
 
 // Database connection
+$pdo = null;
 try {
-    $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->exec("SET NAMES 'utf8'"); // Set character encoding
+    // For InfinityFree, the host might be different
+    $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8";
+    $options = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ];
+    
+    $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+    
+    // Test connection
+    $pdo->query("SELECT 1");
+    
 } catch(PDOException $e) {
-    // Don't show detailed error information in production
-    if (defined('DEBUG_MODE') && DEBUG_MODE) {
-        die("Connection failed: " . $e->getMessage());
-    } else {
-        die("Database connection error. Please try again later.");
-    }
+    // Show detailed error for debugging
+    echo "<div style='background:#f8d7da;color:#721c24;padding:20px;margin:20px;border-radius:4px;'>";
+    echo "<h3>Database Connection Error:</h3>";
+    echo "<p><strong>Error:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
+    echo "<p><strong>Host:</strong> " . htmlspecialchars(DB_HOST) . "</p>";
+    echo "<p><strong>Database:</strong> " . htmlspecialchars(DB_NAME) . "</p>";
+    echo "<p><strong>User:</strong> " . htmlspecialchars(DB_USER) . "</p>";
+    echo "<h4>Common solutions for InfinityFree:</h4>";
+    echo "<ul>";
+    echo "<li>Check if your database credentials are correct in config.php</li>";
+    echo "<li>Make sure the database name includes your account prefix (e.g., 'if0_12345678_KartRiderAnalytics')</li>";
+    echo "<li>Verify that your database host is correct (usually 'sql200.byetcluster.com' or similar)</li>";
+    echo "<li>Ensure your database exists and tables are created</li>";
+    echo "</ul>";
+    echo "</div>";
+    
+    // Show a basic page even if database fails
+    $pdo = null;
 }
 
 // Define all table names
@@ -44,155 +72,7 @@ $selectedTable = isset($_GET['table']) ? $_GET['table'] : 'Player';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KartRider Database Viewer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        
-        .content {
-            display: flex;
-            min-height: 600px;
-        }
-        
-        .sidebar {
-            width: 250px;
-            background-color: #f8f9fa;
-            border-right: 1px solid #ddd;
-            padding: 20px;
-        }
-        
-        .sidebar h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .sidebar ul {
-            list-style: none;
-        }
-        
-        .sidebar li {
-            margin-bottom: 10px;
-        }
-        
-        .sidebar a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #333;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        
-        .sidebar a:hover {
-            background-color: #e9ecef;
-        }
-        
-        .sidebar a.active {
-            background-color: #667eea;
-            color: white;
-        }
-        
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            overflow-x: auto;
-        }
-        
-        .table-header {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #667eea;
-        }
-        
-        .table-header h2 {
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .record-count {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background-color: #667eea;
-            color: white;
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-        }
-        
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-        
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-        
-        .footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 0.9em;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <div class="container">
@@ -218,13 +98,34 @@ $selectedTable = isset($_GET['table']) ? $_GET['table'] : 'Player';
             
             <div class="main-content">
                 <?php
-                try {
-                    // Check if table exists
-                    $tableExists = $pdo->query("SHOW TABLES LIKE '$selectedTable'")->rowCount() > 0;
-                    
-                    if (!$tableExists) {
-                        echo '<div class="error">Table not found: ' . htmlspecialchars($selectedTable) . '</div>';
-                    } else {
+                if ($pdo === null) {
+                    echo '<div class="error">Database connection failed. Please check the error message above.</div>';
+                } else {
+                    try {
+                        // Check if table exists
+                        $tableExists = $pdo->query("SHOW TABLES LIKE '$selectedTable'")->rowCount() > 0;
+                        
+                        if (!$tableExists) {
+                            echo '<div class="error">Table not found: ' . htmlspecialchars($selectedTable) . '</div>';
+                            echo '<div class="no-data">';
+                            echo '<p>Available tables in database:</p>';
+                            try {
+                                $tablesQuery = $pdo->query("SHOW TABLES");
+                                $allTables = $tablesQuery->fetchAll(PDO::FETCH_COLUMN);
+                                if (!empty($allTables)) {
+                                    echo '<ul style="text-align: left; display: inline-block;">';
+                                    foreach ($allTables as $table) {
+                                        echo '<li>' . htmlspecialchars($table) . '</li>';
+                                    }
+                                    echo '</ul>';
+                                } else {
+                                    echo '<p>No tables found in database.</p>';
+                                }
+                            } catch (Exception $e) {
+                                echo '<p>Could not retrieve table list.</p>';
+                            }
+                            echo '</div>';
+                        } else {
                         // Get table data
                         $query = "SELECT * FROM $selectedTable";
                         $stmt = $pdo->query($query);
@@ -279,9 +180,12 @@ $selectedTable = isset($_GET['table']) ? $_GET['table'] : 'Player';
                         <?php endif; ?>
                         
                         <?php
+                        }
+                    } catch (PDOException $e) {
+                        echo '<div class="error">Database Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
+                    } catch (Exception $e) {
+                        echo '<div class="error">General Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
                     }
-                } catch (PDOException $e) {
-                    echo '<div class="error">Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
                 }
                 ?>
             </div>
