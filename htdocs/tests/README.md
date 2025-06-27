@@ -26,63 +26,63 @@ This directory contains all test and verification scripts for the KartRider Anal
 
 Run any test file directly in the browser or via CLI to verify specific functionality or data integrity.
 
-## 测试分类
+## Test Categories
 
-### 核心功能测试
+### Core Functionality Tests
 
-- `test_refactored_dashboard.php`: 验证 Dashboard 重构后的功能
-- `dashboard_test.php`: 仪表板核心功能测试
-- `test_complete_dashboard.php`: 完整仪表板集成测试
+- `test_refactored_dashboard.php`: Verifies Dashboard functionality after refactoring
+- `dashboard_test.php`: Dashboard core functionality test
+- `test_complete_dashboard.php`: Complete dashboard integration test
 
-### 数据测试
+### Data Tests
 
-- `test_avg_race_time.php`: 平均比赛时间计算测试
-- `test_player_distribution.php`: 玩家分布统计测试
-- `test_completion_rate.php`: 成就完成率测试
+- `test_avg_race_time.php`: Average race time calculation test
+- `test_player_distribution.php`: Player distribution statistics test
+- `test_completion_rate.php`: Achievement completion rate test
 
-### 环境测试
+### Environment Tests
 
-- `local_test.php`: 本地开发环境测试
-- `infinityfree_test.php`: InfinityFree 免费主机兼容性测试
-- `smart_config_test.php`: 智能配置系统测试
+- `local_test.php`: Local development environment test
+- `infinityfree_test.php`: InfinityFree free hosting compatibility test
+- `smart_config_test.php`: Smart configuration system test
 
-### 调试工具
+### Debugging Tools
 
-- `debug.php`: 通用调试工具
-- `simple_test.php`: 简单功能验证
-- `test_fixes.php`: 修复验证测试
+- `debug.php`: General debugging utility
+- `simple_test.php`: Simple functionality verification
+- `test_fixes.php`: Fix verification tests
 
-## 使用方法
+## Usage
 
-### 运行所有测试
+### Run All Tests
 
 ```bash
 cd assets/tests
 php test_refactored_dashboard.php
 ```
 
-### 运行特定测试
+### Run Specific Tests
 
 ```bash
 php dashboard_test.php
 php infinityfree_test.php
 ```
 
-### 调试模式
+### Debug Mode
 
 ```bash
 php debug.php
 ```
 
-## 测试说明
+## Test Description
 
-- 所有测试文件都可以独立运行
-- 测试结果会显示在浏览器中
-- 包含详细的错误信息和调试信息
-- 支持不同环境的配置测试
+- All test files can be run independently
+- Test results will be displayed in the browser
+- Includes detailed error information and debugging information
+- Supports configuration testing for different environments
 
-## 注意事项
+## Notes
 
-- 运行测试前请确保数据库连接正常
-- 某些测试可能需要特定的数据库数据
-- 生产环境请谨慎运行测试文件
+- Ensure database connection is normal before running tests
+- Some tests may require specific database data
+- Please be cautious when running test files in production environment

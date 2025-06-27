@@ -1,147 +1,147 @@
-# 模型目录
+# Models Directory
 
-## 概述
+## Overview
 
-此目录包含项目的所有模型文件，负责数据访问和业务逻辑处理。模型层遵循 MVC 架构模式，提供数据操作的抽象接口。
+This directory contains all model files for the project, responsible for data access and business logic processing. The model layer follows the MVC architecture pattern, providing abstract interfaces for data operations.
 
-## 文件结构
+## File Structure
 
 ```
 models/
-├── README.md                    # 本说明文件
-├── BaseModel.php                # 基础模型类
-├── PlayerModel.php              # 玩家数据模型
-├── RaceModel.php                # 比赛数据模型
-└── AchievementModel.php         # 成就数据模型
+├── README.md                    # This documentation file
+├── BaseModel.php                # Base model class
+├── PlayerModel.php              # Player data model
+├── RaceModel.php                # Race data model
+└── AchievementModel.php         # Achievement data model
 ```
 
-## 模型说明
+## Model Description
 
-### 基础模型
+### Base Model
 
-- `BaseModel.php`: 所有模型的基类
-  - 提供数据库连接管理
-  - 定义通用的 CRUD 操作
-  - 包含错误处理机制
+- `BaseModel.php`: Base class for all models
+  - Provides database connection management
+  - Defines common CRUD operations
+  - Includes error handling mechanisms
 
-### 业务模型
+### Business Models
 
-- `PlayerModel.php`: 玩家相关数据操作
+- `PlayerModel.php`: Player-related data operations
 
-  - 玩家信息查询和更新
-  - 玩家统计数据处理
-  - 玩家档案管理
+  - Player information queries and updates
+  - Player statistics data processing
+  - Player profile management
 
-- `RaceModel.php`: 比赛相关数据操作
+- `RaceModel.php`: Race-related data operations
 
-  - 比赛记录查询
-  - 比赛统计计算
-  - 赛道数据分析
+  - Race record queries
+  - Race statistics calculations
+  - Track data analysis
 
-- `AchievementModel.php`: 成就相关数据操作
-  - 成就信息管理
-  - 成就完成情况统计
-  - 成就排行榜处理
+- `AchievementModel.php`: Achievement-related data operations
+  - Achievement information management
+  - Achievement completion statistics
+  - Achievement leaderboard processing
 
-## 设计原则
+## Design Principles
 
-### 数据抽象
+### Data Abstraction
 
-- 封装数据库操作细节
-- 提供简洁的数据访问接口
-- 支持多种数据库类型
+- Encapsulate database operation details
+- Provide concise data access interfaces
+- Support multiple database types
 
-### 业务逻辑
+### Business Logic
 
-- 在模型层处理复杂业务逻辑
-- 确保数据一致性和完整性
-- 提供数据验证功能
+- Handle complex business logic in the model layer
+- Ensure data consistency and integrity
+- Provide data validation functionality
 
-### 性能优化
+### Performance Optimization
 
-- 实现查询缓存机制
-- 优化数据库查询语句
-- 支持批量操作
+- Implement query caching mechanisms
+- Optimize database query statements
+- Support batch operations
 
-## 使用方法
+## Usage
 
-### 基本操作
+### Basic Operations
 
 ```php
-// 创建模型实例
+// Create model instance
 $playerModel = new PlayerModel();
 
-// 查询数据
+// Query data
 $players = $playerModel->getAllPlayers();
 
-// 更新数据
+// Update data
 $playerModel->updatePlayer($playerId, $data);
 
-// 删除数据
+// Delete data
 $playerModel->deletePlayer($playerId);
 ```
 
-### 继承基类
+### Inheriting Base Class
 
 ```php
 class CustomModel extends BaseModel {
     public function customMethod() {
-        // 自定义业务逻辑
+        // Custom business logic
     }
 }
 ```
 
-## 数据库表对应
+## Database Table Mapping
 
-### 玩家相关表
+### Player-Related Tables
 
-- `Player`: 玩家基本信息
-- `PlayerCredentials`: 玩家认证信息
-- `RegisteredPlayer`: 注册玩家信息
+- `Player`: Basic player information
+- `PlayerCredentials`: Player authentication information
+- `RegisteredPlayer`: Registered player information
 
-### 比赛相关表
+### Race-Related Tables
 
-- `Race`: 比赛记录
-- `Participation`: 参与记录
-- `Track`: 赛道信息
-- `Kart`: 卡丁车信息
+- `Race`: Race records
+- `Participation`: Participation records
+- `Track`: Track information
+- `Kart`: Kart information
 
-### 成就相关表
+### Achievement-Related Tables
 
-- `Achievement`: 成就定义
-- `PlayerAchievement`: 玩家成就记录
+- `Achievement`: Achievement definitions
+- `PlayerAchievement`: Player achievement records
 
-## 开发规范
+## Development Standards
 
-### 命名规范
+### Naming Conventions
 
-- 模型类名以`Model`结尾
-- 方法名使用驼峰命名法
-- 数据库字段名使用下划线命名法
+- Model class names end with `Model`
+- Method names use camelCase
+- Database field names use snake_case
 
-### 错误处理
+### Error Handling
 
-- 统一的异常处理机制
-- 详细的错误日志记录
-- 友好的错误信息返回
+- Unified exception handling mechanisms
+- Detailed error log recording
+- User-friendly error message returns
 
-### 代码注释
+### Code Comments
 
-- 类和方法必须有注释
-- 复杂逻辑需要详细说明
-- 参数和返回值要明确标注
+- Classes and methods must have comments
+- Complex logic requires detailed explanations
+- Parameters and return values must be clearly annotated
 
-## 扩展说明
+## Extension Guide
 
-### 添加新模型
+### Adding New Models
 
-1. 继承`BaseModel`类
-2. 实现必要的 CRUD 方法
-3. 添加业务逻辑方法
-4. 更新相关文档
+1. Inherit from `BaseModel` class
+2. Implement necessary CRUD methods
+3. Add business logic methods
+4. Update related documentation
 
-### 数据库迁移
+### Database Migration
 
-- 模型变更需要同步数据库结构
-- 提供数据迁移脚本
-- 保持向后兼容性
+- Model changes require synchronized database structure
+- Provide data migration scripts
+- Maintain backward compatibility

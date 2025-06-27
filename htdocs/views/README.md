@@ -1,179 +1,179 @@
-# 视图目录
+# Views Directory
 
-## 概述
+## Overview
 
-此目录包含项目的所有视图文件，负责页面展示和用户界面。视图层遵循 MVC 架构模式，提供 HTML 模板和前端交互。
+This directory contains all view files for the project, responsible for page display and user interface. The view layer follows the MVC architecture pattern, providing HTML templates and frontend interactions.
 
-## 文件结构
+## File Structure
 
 ```
 views/
-├── README.md                    # 本说明文件
-├── layout.php                   # 主布局模板（134行）
-├── error.php                    # 错误页面模板（114行）
-├── dashboard_modules_inline.php # 仪表板内联模块（1002行）
-├── profile_content.php          # 玩家档案内容（320行）
-├── queries_content.php          # 查询工具内容（105行）
-└── table_viewer_content.php     # 表格查看器内容（113行）
+├── README.md                    # This documentation file
+├── layout.php                   # Main layout template (134 lines)
+├── error.php                    # Error page template (114 lines)
+├── dashboard_modules_inline.php # Dashboard inline modules (1002 lines)
+├── profile_content.php          # Player profile content (320 lines)
+├── queries_content.php          # Query tools content (105 lines)
+└── table_viewer_content.php     # Table viewer content (113 lines)
 ```
 
-## 视图说明
+## View Description
 
-### 布局模板
+### Layout Templates
 
-- `layout.php`: 主布局文件
+- `layout.php`: Main layout file
 
-  - 定义页面基本结构
-  - 包含头部、导航、内容区域、底部
-  - 处理 CSS 和 JavaScript 资源加载
-  - 支持响应式设计
+  - Defines basic page structure
+  - Includes header, navigation, content area, footer
+  - Handles CSS and JavaScript resource loading
+  - Supports responsive design
 
-- `error.php`: 错误页面模板
-  - 统一的错误信息展示
-  - 友好的错误提示界面
-  - 提供返回和帮助链接
+- `error.php`: Error page template
+  - Unified error message display
+  - User-friendly error prompt interface
+  - Provides return and help links
 
-### 内容模板
+### Content Templates
 
-- `dashboard_modules_inline.php`: 仪表板模块内容
+- `dashboard_modules_inline.php`: Dashboard module content
 
-  - 玩家统计模块展示
-  - 会话分析模块展示
-  - 成就系统模块展示
-  - 支持动态数据加载
+  - Player statistics module display
+  - Session analytics module display
+  - Achievement system module display
+  - Supports dynamic data loading
 
-- `profile_content.php`: 玩家档案页面内容
+- `profile_content.php`: Player profile page content
 
-  - 个人统计信息展示
-  - 历史记录列表
-  - 成就展示区域
-  - 数据可视化图表
+  - Personal statistics information display
+  - History record list
+  - Achievement display area
+  - Data visualization charts
 
-- `queries_content.php`: 查询工具页面内容
+- `queries_content.php`: Query tools page content
 
-  - SQL 查询界面
-  - 查询结果展示
-  - 数据导出功能
-  - 查询历史记录
+  - SQL query interface
+  - Query result display
+  - Data export functionality
+  - Query history records
 
-- `table_viewer_content.php`: 表格查看器内容
-  - 数据库表结构展示
-  - 数据浏览界面
-  - 分页和排序功能
-  - 数据筛选工具
+- `table_viewer_content.php`: Table viewer content
+  - Database table structure display
+  - Data browsing interface
+  - Pagination and sorting functionality
+  - Data filtering tools
 
-## 设计原则
+## Design Principles
 
-### 分离关注点
+### Separation of Concerns
 
-- 视图只负责展示逻辑
-- 不包含业务逻辑处理
-- 通过控制器传递数据
+- Views are only responsible for display logic
+- Do not contain business logic processing
+- Data is passed through controllers
 
-### 可重用性
+### Reusability
 
-- 组件化设计
-- 支持模板继承
-- 便于维护和扩展
+- Component-based design
+- Supports template inheritance
+- Easy to maintain and extend
 
-### 用户体验
+### User Experience
 
-- 响应式设计
-- 直观的界面布局
-- 良好的交互反馈
+- Responsive design
+- Intuitive interface layout
+- Good interactive feedback
 
-## 模板语法
+## Template Syntax
 
-### 基本语法
+### Basic Syntax
 
 ```php
-<!-- 变量输出 -->
+<!-- Variable output -->
 <?php echo $variable; ?>
 
-<!-- 条件判断 -->
+<!-- Conditional statements -->
 <?php if ($condition): ?>
-    <!-- 内容 -->
+    <!-- Content -->
 <?php endif; ?>
 
-<!-- 循环遍历 -->
+<!-- Loop iteration -->
 <?php foreach ($array as $item): ?>
-    <!-- 循环内容 -->
+    <!-- Loop content -->
 <?php endforeach; ?>
 ```
 
-### 布局继承
+### Layout Inheritance
 
 ```php
-<!-- 在子模板中 -->
+<!-- In child template -->
 <?php $this->renderView('layout.php', $data); ?>
 ```
 
-## 前端资源
+## Frontend Resources
 
-### CSS 文件
+### CSS Files
 
-- `assets/style.css`: 主样式文件
-- 响应式设计支持
-- 现代化 UI 组件
+- `assets/style.css`: Main stylesheet
+- Responsive design support
+- Modern UI components
 
-### JavaScript 文件
+### JavaScript Files
 
-- `assets/dashboard.js`: 仪表板交互逻辑
-- `assets/tabs.js`: 标签页功能
-- AJAX 数据加载
-- 动态图表更新
+- `assets/dashboard.js`: Dashboard interaction logic
+- `assets/tabs.js`: Tab functionality
+- AJAX data loading
+- Dynamic chart updates
 
-## 数据传递
+## Data Passing
 
-### 控制器到视图
+### Controller to View
 
 ```php
-// 在控制器中
+// In controller
 $this->renderView('template.php', [
     'data' => $data,
     'user' => $user
 ]);
 ```
 
-### 视图中的数据访问
+### Data Access in Views
 
 ```php
-<!-- 在视图中 -->
+<!-- In view -->
 <?php echo $data['key']; ?>
 <?php echo $user->name; ?>
 ```
 
-## 开发规范
+## Development Standards
 
-### 命名规范
+### Naming Conventions
 
-- 文件名使用小写和下划线
-- 内容文件以`_content.php`结尾
-- 布局文件使用描述性名称
+- File names use lowercase and underscores
+- Content files end with `_content.php`
+- Layout files use descriptive names
 
-### 代码组织
+### Code Organization
 
-- 保持模板简洁
-- 避免复杂的 PHP 逻辑
-- 使用适当的缩进和注释
+- Keep templates concise
+- Avoid complex PHP logic
+- Use appropriate indentation and comments
 
-### 性能优化
+### Performance Optimization
 
-- 减少数据库查询
-- 使用缓存机制
-- 优化资源加载
+- Reduce database queries
+- Use caching mechanisms
+- Optimize resource loading
 
-## 扩展说明
+## Extension Guide
 
-### 添加新视图
+### Adding New Views
 
-1. 创建新的模板文件
-2. 在控制器中添加渲染逻辑
-3. 更新相关样式和脚本
-4. 测试页面功能
+1. Create new template file
+2. Add rendering logic in controller
+3. Update related styles and scripts
+4. Test page functionality
 
-### 主题定制
+### Theme Customization
 
-- 支持多主题切换
-- 可配置的颜色方案
-- 灵活的布局选项
+- Support for multiple theme switching
+- Configurable color schemes
+- Flexible layout options

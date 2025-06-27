@@ -18,13 +18,13 @@ This directory contains legacy or backup files from previous versions of the Kar
 
 These files are for reference or rollback purposes only. Do not modify unless necessary for migration or recovery.
 
-## 版本历史
+## Version History
 
-- **v1.0**: 原始单文件版本
-- **v2.0**: 重构后的模块化版本（当前版本）
+- **v1.0**: Original single-file version
+- **v2.0**: Refactored modular version (current version)
 
-## 清理建议
+## Cleanup Recommendations
 
-- 定期清理过时的备份文件
-- 保留重要版本的备份
-- 记录重要的代码变更
+- Regularly clean up outdated backup files
+- Keep backups of important versions
+- Document important code changes
