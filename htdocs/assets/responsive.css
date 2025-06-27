@@ -1,0 +1,80 @@
+/* ========================
+   RESPONSIVE DESIGN
+   ======================== */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab {
+        border-bottom: 1px solid #ddd;
+        border-radius: 0;
+        margin-left: 0 !important;
+    }
+
+    .tab.active {
+        border-bottom-color: #007bff;
+    }
+
+    .search-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        min-width: auto;
+    }
+
+    .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .data-table {
+        font-size: 14px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px 10px;
+    }
+
+    .centered-form-container {
+        max-width: 100%;
+        margin: 0 10px;
+        padding: 15px;
+    }
+
+    .tabs[data-tab-count] .tab {
+        min-width: 80px;
+        max-width: 120px;
+        /* Limit smaller max width on mobile */
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .tabs[data-tab-count="1"] .tab,
+    .tabs[data-tab-count="2"] .tab,
+    .tabs[data-tab-count="3"] .tab {
+        min-width: 90px;
+        max-width: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabs[data-tab-count] .tab {
+        min-width: 70px;
+        max-width: 100px;
+        /* Further limit on small screens */
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .centered-form-container {
+        margin: 0 5px;
+        padding: 12px;
+    }
+}

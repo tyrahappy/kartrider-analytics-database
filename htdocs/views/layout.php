@@ -17,11 +17,11 @@
     
     // Determine asset path based on environment
     if ($useAssetHelper && function_exists('assetVersion')) {
-        $cssPath = assetVersion('assets/style.css');
+        $cssPath = assetVersion('assets/main.css');
         $jsPath = assetVersion('assets/tabs.js');
     } else {
         // Simple fallback for local development
-        $cssPath = 'assets/style.css';
+        $cssPath = 'assets/main.css';
         $jsPath = 'assets/tabs.js';
     }
     ?>

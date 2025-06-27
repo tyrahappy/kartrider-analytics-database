@@ -33,10 +33,10 @@
     }
     
     // Test CSS file
-    if (file_exists('assets/style.css')) {
-        echo "<p class='pass'>✅ CSS file exists</p>";
+    if (file_exists('assets/main.css')) {
+        echo '<div class="result success">✅ assets/main.css exists</div>';
     } else {
-        echo "<p class='fail'>❌ CSS file missing</p>";
+        echo '<div class="result error">❌ assets/main.css not found</div>';
     }
     
     // Test database
@@ -66,7 +66,7 @@
     <h2>Manual Tests</h2>
     <p>Test these URLs manually:</p>
     <ul>
-        <li><a href="assets/style.css" target="_blank">CSS File</a></li>
+        <li><a href="assets/main.css" target="_blank">CSS File</a></li>
         <li><a href="assets/tabs.js" target="_blank">JS File</a></li>
     </ul>
 </body>

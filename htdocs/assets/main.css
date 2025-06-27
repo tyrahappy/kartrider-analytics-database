@@ -1,0 +1,76 @@
+/* ========================
+   MAIN STYLESHEET
+   ======================== */
+
+/* Import all modular CSS files */
+@import url('base.css');
+@import url('layout.css');
+@import url('components.css');
+@import url('tabs.css');
+@import url('dashboard.css');
+@import url('utilities.css');
+@import url('responsive.css');
+
+/* ========================
+   GLOBAL OVERRIDES
+   ======================== */
+
+/* Ensure all styles are loaded correctly */
+* {
+    box-sizing: border-box;
+}
+
+/* Ensure responsive design works on all devices */
+html {
+    font-size: 16px;
+}
+
+body {
+    line-height: 1.6;
+}
+
+/* Ensure images and media elements are responsive */
+img,
+video,
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure tables are scrollable on small screens */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure form elements are consistent across browsers */
+input,
+select,
+textarea,
+button {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Ensure focus state is visible in all browsers */
+*:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .container {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+}

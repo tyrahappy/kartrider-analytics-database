@@ -34,16 +34,16 @@
         <h2>CSS Loading Test</h2>
         
         <?php if ($useHelper): ?>
-            <link rel="stylesheet" href="<?= assetVersion('assets/style.css') ?>">
+            <link rel="stylesheet" href="<?= assetVersion('assets/main.css') ?>">
             <div class="asset-test">
                 <strong>Using Asset Helper:</strong><br>
-                <span class="asset-url"><?= htmlspecialchars(assetVersion('assets/style.css')) ?></span>
+                <span class="asset-url"><?= htmlspecialchars(assetVersion('assets/main.css')) ?></span>
             </div>
         <?php else: ?>
-            <link rel="stylesheet" href="assets/style.css">
+            <link rel="stylesheet" href="assets/main.css">
             <div class="asset-test warning">
                 <strong>Using Relative Path (may not work):</strong><br>
-                <span class="asset-url">assets/style.css</span>
+                <span class="asset-url">assets/main.css</span>
             </div>
         <?php endif; ?>
         
@@ -85,7 +85,7 @@
         <p>Click these links to test if assets load directly:</p>
         
         <div class="asset-test">
-            <a href="assets/style.css" target="_blank">📄 Test style.css</a> - Should show CSS code
+            <a href="assets/main.css" target="_blank">📄 Test main.css</a> - Should show CSS code
         </div>
         <div class="asset-test">
             <a href="assets/tabs.js" target="_blank">📄 Test tabs.js</a> - Should show JavaScript code

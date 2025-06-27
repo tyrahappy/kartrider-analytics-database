@@ -125,7 +125,7 @@ if ($_SERVER['HTTP_HOST'] !== 'localhost' && strpos($_SERVER['HTTP_HOST'], '127.
             'includes/DatabaseService.php',
             'includes/BaseController.php',
             'views/layout.php',
-            'assets/style.css',
+            'assets/main.css',
             'assets/tabs.js'
         ];
         
@@ -157,7 +157,7 @@ if ($_SERVER['HTTP_HOST'] !== 'localhost' && strpos($_SERVER['HTTP_HOST'], '127.
                 echo '<div class="result info">Base URL: ' . htmlspecialchars($baseUrl) . '</div>';
                 
                 if (function_exists('asset')) {
-                    $testAsset = asset('assets/style.css');
+                    $testAsset = asset('assets/main.css');
                     echo '<div class="result info">Test Asset URL: ' . htmlspecialchars($testAsset) . '</div>';
                 }
             }
