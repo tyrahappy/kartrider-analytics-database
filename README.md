@@ -227,7 +227,7 @@ This project fulfills all core requirements of a database-driven web application
 
 ### Project Links
 
-Live Application: https://kartrider.kesug.com/profile.php
+Live Application: https://kartrider.kesug.com
 Source Repository: https://github.com/tyrahappy/kartrider-analytics-database.git
 Documentation: Comprehensive README files in each directory
 Academic Context: CS 5200 Database Management Systems
