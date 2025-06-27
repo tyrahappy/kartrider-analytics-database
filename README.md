@@ -19,65 +19,69 @@ It demonstrates best practices in:
 ## Project Structure
 
 ```
-KartRider Analytics/
-├── assets/                          # Static resources
-│   ├── legacy/                      # Backup files and old versions
-│   ├── tests/                       # Testing files
-│   ├── kartrider_ddl.sql           # Database schema (DDL)
-│   ├── style.css                   # Main stylesheet
-│   ├── tabs.js                     # Interactive tab functionality
-│   └── README.md                   # Assets documentation
-│
-├── controllers/                     # MVC Controllers
-│   ├── dashboard/                   # Dashboard module controllers
-│   │   ├── AchievementDashboardController.php
-│   │   ├── PlayerStatsDashboardController.php
-│   │   ├── SessionAnalyticsController.php
-│   │   └── README.md
-│   ├── DashboardController.php      # Main dashboard controller
-│   ├── PlayerStatsController.php    # Player statistics controller
-│   ├── ProfileController.php        # Profile management (CRUD)
-│   ├── QueriesController.php        # Dynamic queries controller
-│   ├── TableViewerController.php    # Database table viewer
-│   └── README.md                    # Controllers documentation
-│
-├── includes/                        # Core application files
-│   ├── AssetHelper.php             # Asset management utilities
-│   ├── BaseController.php          # Base controller class
-│   ├── DatabaseService.php         # Database connection service
-│   └── README.md                   # Includes documentation
-│
-├── models/                         # Data models (MVC)
-│   ├── AchievementModel.php        # Achievement data model
-│   ├── BaseModel.php               # Base model class
-│   ├── PlayerModel.php             # Player data model
-│   ├── RaceModel.php               # Race data model
-│   └── README.md                   # Models documentation
-│
-├── views/                          # View templates
-│   ├── dashboard_modules_inline.php # Dashboard module views
-│   ├── error.php                   # Error page template
-│   ├── layout.php                  # Main layout template
-│   ├── profile_content.php         # Profile management UI
-│   ├── queries_content.php         # Dynamic queries UI
-│   ├── table_viewer_content.php    # Table viewer UI
-│   └── README.md                   # Views documentation
-│
-├── tests/                          # Testing suite
-│   └── test_session_analytics_fix.php
-│
-├── config/                         # Configuration files
-│   ├── config.php                  # Database configuration
-│   ├── config_environment.php      # Environment settings
-│   └── .htaccess                   # Apache configuration
-│
-├── Web Application Files           # Main application entry points
-│   ├── index.php                   # Application homepage
-│   ├── dashboard.php               # Dashboard interface
-│   ├── profile.php                 # Profile management
-│   ├── queries.php                 # Dynamic queries interface
-│   ├── error.log                   # Application logs
-│   └── README.md                   # Main documentation
+kartrider-analytics-database-main/
+├── CodeBase.pdf                     # Project codebase documentation
+├── README.md                         # Project overview and setup instructions
+├── kartrider_data.sql                # SQL file for sample data population
+├── kartrider_ddl.sql                 # SQL file for database schema (DDL)
+
+├── htdocs/                           # Web application root directory
+│   ├── README.md                     # Application structure documentation
+│   ├── config.php                    # Main configuration file (database connection, paths)
+│   ├── config_environment.php        # Environment-specific settings
+│   ├── dashboard.php                 # Dashboard entry point (analytics interface)
+│   ├── index.php                     # Main landing page (homepage + navigation)
+│   ├── profile.php                   # Profile management (CRUD operations)
+│   ├── queries.php                   # Dynamic query interface
+│   ├── table_viewer.php              # Database table viewer
+
+│   ├── assets/                       # Static assets (CSS, JavaScript, SQL)
+│   │   ├── README.md                 # Assets folder documentation
+│   │   ├── dashboard.js              # Dashboard interactive features (JS)
+│   │   ├── style.css                 # Global CSS styling
+│   │   └── tabs.js                   # Tab navigation interactivity
+
+│   ├── controllers/                  # MVC controllers handling backend logic
+│   │   ├── DashboardController.php   # Main controller for dashboard routing
+│   │   ├── PlayerStatsController.php # Handles player statistics page backend logic
+│   │   ├── ProfileController.php     # CRUD operations for player profiles
+│   │   ├── QueriesController.php     # Dynamic SQL query execution backend
+│   │   ├── TableViewerController.php # Backend for table viewer interface
+│   │   ├── README.md                 # Controllers module documentation
+│   │   ├── dashboard/                # Sub-controllers for dashboard modules
+│   │   │   ├── AchievementDashboardController.php  # Achievement analytics controller
+│   │   │   ├── PlayerStatsDashboardController.php  # Player statistics analytics controller
+│   │   │   ├── SessionAnalyticsController.php      # Session analytics controller
+│   │   │   └── README.md                           # Dashboard controllers documentation
+
+│   ├── docs/                         # Project documentation
+│   │   ├── README.md                  # Documentation folder overview
+│   │   ├── REFACTOR_README.md         # Refactoring logs and notes
+│   │   ├── Conceptual_Design.pdf      # Conceptual ERD design document
+│   │   ├── Logical_Schema.pdf         # Relational schema design document
+│   │   ├── Normalization_Steps.pdf    # Database normalization step-by-step
+│   │   └── Final_Analytical_Report.pdf# Final analytical report with dashboard insights
+
+│   ├── includes/                     # Core backend services and utilities
+│   │   ├── AssetHelper.php            # Helper for static asset management
+│   │   ├── BaseController.php         # Base class for all controllers
+│   │   ├── DatabaseService.php        # Database connection service
+│   │   └── README.md                  # Includes folder documentation
+
+│   ├── legacy/                       # Backup files and deprecated versions
+│   │   ├── DashboardController_backup.php  # Backup of the dashboard controller
+│   │   ├── config_original_backup.php      # Backup of the original config
+│   │   └── README.md                       # Legacy folder documentation
+
+│   ├── models/                        # MVC data models representing database tables
+│   │   ├── AchievementModel.php        # Data model for achievements
+│   │   ├── BaseModel.php               # Base model class for shared functions
+│   │   ├── PlayerModel.php             # Data model for players
+│   │   ├── RaceModel.php               # Data model for races and sessions
+│   │   └── README.md                   # Models folder documentation
+
+│   ├── tests/                          # Test scripts and verification
+│   │   └── test_session_analytics_fix.php # Test for session analytics module
 ```
 
 ## Database Design
