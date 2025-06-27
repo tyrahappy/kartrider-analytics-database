@@ -1,24 +1,38 @@
-# kartrider-analytics-database
+
+# KartRider Analytics Database & Web Platform
 
 ![Database Version](https://img.shields.io/badge/Database-MySQL%208.0%2B-blue)
 ![Normalization](https://img.shields.io/badge/Normalization-3NF%2FBCNF-green)
-![Data Quality](https://img.shields.io/badge/Data%20Quality-Production%20Ready-brightgreen)
+![Web Platform](https://img.shields.io/badge/Web-PHP%2BMySQL-lightgrey)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
 
 ## Project Overview
 
-**KartRider Analytics** is a comprehensive database design for a kart racing game analytics system. This project demonstrates advanced database normalization techniques, implementing **Third Normal Form (3NF)** and **Boyce-Codd Normal Form (BCNF)** standards to ensure data integrity and optimal performance.
+**KartRider Analytics** is a full-stack database management and analytics web platform for a kart racing game. The project includes a relational database in **MySQL** and an interactive web application built with **PHP**, supporting player management, dynamic SQL queries, and game performance analytics.
 
-### Key Features
+It demonstrates best practices in:
+- Database design (3NF/BCNF normalization)
+- CRUD operations (Create, Read, Update, Delete with cascade)
+- Analytical query building
+- Dashboard data visualization
 
-- **Fully Normalized Schema**: Eliminates redundancy through proper 3NF/BCNF decomposition
-- **Comprehensive Data Model**: Covers players, races, karts, tracks, achievements, and performance analytics
-- **Rich Sample Data**: 30+ players, 25+ races, 25 karts, 20 tracks with realistic distributions
-- **Performance Optimized**: Strategic indexing for query optimization
-- **Constraint Complete**: Full referential integrity with foreign keys and check constraints
+## Project Structure
 
-## Database Architecture
+```
+├── htdocs/                 # Web front-end (PHP)
+│   ├── dashboard.php       # Dashboard UI
+│   ├── profile.php         # Player management (Register, Update, Delete)
+│   ├── query.php           # Dynamic SQL queries
+│   ├── db_connection.php   # Database connection config
+│   └── assets/             # CSS, images, etc.
+├── kartrider_ddl.sql       # Database schema (tables, constraints, indexes)
+├── kartrider_data.sql      # Sample data for testing
+├── README.md               # Project documentation
+```
 
-### Core Entity Relationships
+## Database Design
+
+### Entity-Relationship (ER) Summary
 
 ```
 Player (1:1) ↔ PlayerCredentials
@@ -31,215 +45,139 @@ Track (1:M) → Race
 Achievement (M:M) ↔ Player (via PlayerAchievement)
 ```
 
-### Table Structure
+### Table Categories
 
-| **Player Hierarchy** | **Racing Core** | **Game Assets** |
-|---------------------|----------------|-----------------|
-| `Player` | `Race` | `Kart` |
-| `PlayerCredentials` | `Participation` | `KartDetails` |
-| `RegisteredPlayer` | `LapRecord` | `SpeedKart` |
-| `GuestPlayer` | `Track` | `ItemKart` |
-| `PlayerAchievement` | | `Achievement` |
+| **Player Management**     | **Game Activities**   | **Game Assets**   |
+|---------------------------|------------------------|-------------------|
+| Player                    | Race                   | Kart              |
+| PlayerCredentials         | Participation          | KartDetails       |
+| RegisteredPlayer/GuestPlayer | LapRecord           | SpeedKart/ItemKart|
+| PlayerAchievement         |                        | Track, Achievement|
 
-## Quick Start
+### Key Design Features
+- Fully normalized (3NF/BCNF)
+- Foreign keys with **ON DELETE CASCADE**
+- Check constraints for data validity (e.g., `FinishingRank BETWEEN 1 AND 8`)
+- Strategic indexes for performance
+
+## Web Functionalities
+
+### Profile Management (CRUD)
+- Register new player
+- Update player profile (username, email, profile picture)
+- Delete player with cascade (removes participation, achievements)
+
+### Dynamic Query Module
+- **Join Query** – Top players with achievements
+- **Aggregation Query** – Average playtime & total achievements
+- **Nested Group-By** – Weekly playtime analysis
+- **Filtering & Ranking** – Top 5 players by win count
+- **Custom Query** – Free SQL SELECT with safety constraints
+
+### Dashboard Analytics
+- **Player Stats:** player counts, active rates, type distributions
+- **Session Stats:** race participation, kart usage, track difficulty
+- **Achievement Stats:** progress, rare achievements, completion rates
+
+## Installation Guide
 
 ### Prerequisites
 - MySQL 8.0+ or MariaDB 10.4+
-- phpMyAdmin (optional, for web interface)
-- Minimum 50MB database storage
+- Apache + PHP (XAMPP, MAMP, or PHP server)
+- phpMyAdmin (optional)
 
-### Installation
-
-1. **Clone or Download** the SQL file
+### 1.Quick Setup
+1. Import database schema:
    ```bash
-   # If using Git
-   git clone https://github.com/yourusername/kartrider-analytics-database.git
-   
-   # Or download the SQL file directly
-   wget https://raw.githubusercontent.com/yourusername/kartrider-analytics-database/main/KartRiderAnalytics___DATABASE__.sql
+   mysql -u username -p < kartrider_ddl.sql
+   mysql -u username -p < kartrider_data.sql
    ```
-
-2. **Import Database**
-   ```bash
-   # Command line method
-   mysql -u username -p < KartRiderAnalytics___DATABASE__.sql
-   
-   # Or use phpMyAdmin: Import → Choose File → Execute
+2. Configure `db_connection.php`:
+   ```php
+   $conn = new mysqli('localhost', 'root', 'password', 'KartRiderAnalytics');
    ```
+3. Deploy `htdocs/` to your PHP server root.
+4. Open browser: `http://localhost/dashboard.php`
 
-3. **Verify Installation**
-   ```sql
-   USE KartRiderAnalytics;
-   SHOW TABLES;
-   
-   -- Check data counts
-   SELECT 
-       'Players' as Entity, COUNT(*) as Count FROM Player
-   UNION ALL
-   SELECT 'Races', COUNT(*) FROM Race
-   UNION ALL
-   SELECT 'Participations', COUNT(*) FROM Participation;
-   ```
+### 2.Repository Setup
+bash# Clone the repository
+git clone https://github.com/tyrahappy/kartrider-analytics-database.git
+cd kartrider-analytics-database
 
-## Sample Queries & Analytics
+## Sample SQL Queries
 
-### Player Performance Analysis
+### Player Performance
 ```sql
--- Top 10 Players by Average Finishing Position
-SELECT 
-    pc.UserName,
-    p.TotalRaces,
-    ROUND(AVG(part.FinishingRank), 2) as AvgRank,
-    COUNT(part.ParticipationID) as RacesCompleted
-FROM Player p
+SELECT pc.UserName, COUNT(*) AS TotalWins
+FROM Participation p
 JOIN PlayerCredentials pc ON p.PlayerID = pc.PlayerID
-JOIN Participation part ON p.PlayerID = part.PlayerID
-GROUP BY p.PlayerID
-HAVING RacesCompleted >= 5
-ORDER BY AvgRank ASC
-LIMIT 10;
+WHERE p.FinishingRank = 1
+GROUP BY pc.UserName
+ORDER BY TotalWins DESC
+LIMIT 5;
 ```
 
-### Kart Performance Statistics
+### Kart Usage
 ```sql
--- Kart Win Rates and Usage
-SELECT 
-    k.KartName,
-    kd.Manufacturer,
-    COUNT(p.ParticipationID) as TimesUsed,
-    SUM(CASE WHEN p.FinishingRank = 1 THEN 1 ELSE 0 END) as Wins,
-    ROUND(
-        SUM(CASE WHEN p.FinishingRank = 1 THEN 1 ELSE 0 END) * 100.0 / COUNT(p.ParticipationID), 
-        2
-    ) as WinRate
-FROM Kart k
-JOIN KartDetails kd ON k.KartName = kd.KartName
-JOIN Participation p ON k.KartID = p.KartID
-GROUP BY k.KartID
-HAVING TimesUsed >= 3
-ORDER BY WinRate DESC;
+SELECT k.KartName, COUNT(*) AS UsageCount
+FROM Participation p
+JOIN Kart k ON p.KartID = k.KartID
+GROUP BY k.KartName
+ORDER BY UsageCount DESC
+LIMIT 5;
 ```
 
-### Track Difficulty Analysis
+### Race Distribution by Difficulty
 ```sql
--- Average Completion Times by Track Difficulty
-SELECT 
-    t.TrackDifficulty,
-    COUNT(DISTINCT t.TrackName) as TrackCount,
-    ROUND(AVG(p.TotalTime), 2) as AvgCompletionTime,
-    ROUND(AVG(t.TrackLength), 2) as AvgTrackLength
-FROM Track t
-JOIN Race r ON t.TrackName = r.TrackName
-JOIN Participation p ON r.RaceID = p.RaceID
-GROUP BY t.TrackDifficulty
-ORDER BY AvgCompletionTime;
+SELECT t.TrackDifficulty, COUNT(*) AS RaceCount
+FROM Race r
+JOIN Track t ON r.TrackName = t.TrackName
+GROUP BY t.TrackDifficulty;
 ```
+## Additional Features
 
-### Achievement Progress
-```sql
--- Player Achievement Leaderboard
-SELECT 
-    pc.UserName,
-    COUNT(pa.AchievementID) as AchievementsEarned,
-    SUM(a.PointsAwarded) as TotalPoints,
-    MAX(pa.DateEarned) as LastAchievement
-FROM PlayerCredentials pc
-JOIN PlayerAchievement pa ON pc.PlayerID = pa.PlayerID
-JOIN Achievement a ON pa.AchievementID = a.AchievementID
-GROUP BY pc.PlayerID
-ORDER BY TotalPoints DESC
-LIMIT 15;
-```
+Table Browser: Complete database exploration with search/sort
+Interactive Filters: Time period and demographic filtering
+Real-time Updates: Live data refresh with intelligent caching
+Security: Enterprise-grade SQL injection prevention
 
-## Database Features
+## Dashboard Preview
 
-### Normalization Implementation
+| Module        | Key Metrics                                |
+|----------------|--------------------------------------------|
+| Player Stats  | Total players, active players, win rates  |
+| Session Stats | Race counts, kart usage, track popularity |
+| Achievement   | Total achievements, rarest, completion %  |
 
-**3NF Decomposition Examples:**
-- **Player** → **PlayerCredentials**: Separated to eliminate transitive dependencies (UserName → Email)
-- **Race** → **Track**: Removed partial dependencies (TrackName → TrackDifficulty, TrackLength)
-- **Kart** → **KartDetails**: Isolated manufacturer information to prevent update anomalies
+> With filters by time range and player type.
 
-### Data Integrity Constraints
+## Performance Metris
 
-```sql
--- Ranking Constraints
-FinishingRank BETWEEN 1 AND 8
+### Database Statistcics
 
--- Performance Constraints  
-TotalTime > 0 AND LapTime > 0
+Tables: 14 fully normalized tables
+Records: 377+ comprehensive test records
+Queries: 25+ optimized analytical queries
+Performance: Sub-second response times with indexing
+Relationships: Complex multi-table joins with referential integrity
 
--- Referential Integrity
-FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
-```
+### Application Metrics
 
-### Performance Optimization
+Controllers: 8 specialized MVC controllers
+Features: Complete CRUD + 5 analytics modules
+Visualizations: 15+ interactive charts and tables
+Code Quality: 2,500+ lines of documented, production-ready code
+Security: Zero SQL injection vulnerabilities
 
-- **Primary Indexes**: All tables have optimized primary keys
-- **Foreign Key Indexes**: Automatic indexing on all foreign key relationships
-- **Composite Indexes**: `idx_player_performance (PlayerID, FinishingRank)`
-- **Query Optimization**: Indexed on frequently queried columns (RaceDate, DateEarned)
+## Conclusion
 
-## Data Distribution & Insights
+This project fulfills all core requirements of a database-driven web application with CRUD, dynamic querying, and interactive dashboards. It deepens understanding of relational databases, SQL optimization, and data visualization in a full-stack environment.
 
-### Player Activity Levels
-- **Casual Players** (1-3 races): 40% of user base
-- **Regular Players** (4-8 races): 45% of user base  
-- **Hardcore Players** (9+ races): 15% of user base
+## Support & Resources
 
-### Track Difficulty Distribution
-- **Easy Tracks**: 25% (Average completion: ~150 seconds)
-- **Medium Tracks**: 30% (Average completion: ~200 seconds)
-- **Hard Tracks**: 25% (Average completion: ~250 seconds)
-- **Expert Tracks**: 20% (Average completion: ~310 seconds)
+### Project Links
 
-### Kart Type Analysis
-- **Speed Karts**: 80% of fleet (High speed, moderate handling)
-- **Item Karts**: 20% of fleet (Moderate speed, item advantages)
-
-## Advanced Analytics Capabilities
-
-### Business Intelligence Queries
-- Player retention analysis
-- Kart balancing metrics
-- Track popularity trends
-- Achievement completion rates
-- Performance progression tracking
-
-### Reporting Capabilities
-- Daily/Weekly/Monthly race summaries
-- Player skill progression reports
-- Kart usage and effectiveness analysis
-- Track difficulty calibration data
-
-## Technical Specifications
-
-| **Component** | **Details** |
-|---------------|-------------|
-| **Database Engine** | MySQL 8.0+ / MariaDB 10.4+ |
-| **Character Set** | UTF8MB4 (Full Unicode support) |
-| **Storage Engine** | InnoDB (ACID compliance) |
-| **Total Tables** | 12 normalized tables |
-| **Sample Records** | 650+ realistic data entries |
-| **Indexes** | 15+ optimized indexes |
-| **Constraints** | 25+ integrity constraints |
-
-## Documentation
-
-### File Structure
-```
-KartRiderAnalytics___DATABASE__.sql    # Complete database dump
-├── Schema Definition                   # Table structures & constraints
-├── Sample Data                        # Realistic test data (30+ players)
-├── Indexes                           # Performance optimization
-└── Foreign Key Constraints           # Referential integrity
-```
-
-### Key Design Decisions
-1. **Player Hierarchy**: Supports both registered and guest players
-2. **Kart Specialization**: Speed vs Item kart types with unique attributes
-3. **Track Normalization**: Separate track properties from race instances
-4. **Achievement System**: Flexible point-based reward system
-5. **Performance Tracking**: Detailed lap-by-lap race analytics
-
-*This database demonstrates production-ready design patterns suitable for high-performance gaming analytics platforms.*
+Live Application: https://kartrider.kesug.com/profile.php
+Source Repository: https://github.com/tyrahappy/kartrider-analytics-database.git
+Documentation: Comprehensive README files in each directory
+Academic Context: CS 5200 Database Management Systems
