@@ -19,15 +19,65 @@ It demonstrates best practices in:
 ## Project Structure
 
 ```
-├── htdocs/                 # Web front-end (PHP)
-│   ├── dashboard.php       # Dashboard UI
-│   ├── profile.php         # Player management (Register, Update, Delete)
-│   ├── query.php           # Dynamic SQL queries
-│   ├── db_connection.php   # Database connection config
-│   └── assets/             # CSS, images, etc.
-├── kartrider_ddl.sql       # Database schema (tables, constraints, indexes)
-├── kartrider_data.sql      # Sample data for testing
-├── README.md               # Project documentation
+KartRider Analytics/
+├── assets/                          # Static resources
+│   ├── legacy/                      # Backup files and old versions
+│   ├── tests/                       # Testing files
+│   ├── kartrider_ddl.sql           # Database schema (DDL)
+│   ├── style.css                   # Main stylesheet
+│   ├── tabs.js                     # Interactive tab functionality
+│   └── README.md                   # Assets documentation
+│
+├── controllers/                     # MVC Controllers
+│   ├── dashboard/                   # Dashboard module controllers
+│   │   ├── AchievementDashboardController.php
+│   │   ├── PlayerStatsDashboardController.php
+│   │   ├── SessionAnalyticsController.php
+│   │   └── README.md
+│   ├── DashboardController.php      # Main dashboard controller
+│   ├── PlayerStatsController.php    # Player statistics controller
+│   ├── ProfileController.php        # Profile management (CRUD)
+│   ├── QueriesController.php        # Dynamic queries controller
+│   ├── TableViewerController.php    # Database table viewer
+│   └── README.md                    # Controllers documentation
+│
+├── includes/                        # Core application files
+│   ├── AssetHelper.php             # Asset management utilities
+│   ├── BaseController.php          # Base controller class
+│   ├── DatabaseService.php         # Database connection service
+│   └── README.md                   # Includes documentation
+│
+├── models/                         # Data models (MVC)
+│   ├── AchievementModel.php        # Achievement data model
+│   ├── BaseModel.php               # Base model class
+│   ├── PlayerModel.php             # Player data model
+│   ├── RaceModel.php               # Race data model
+│   └── README.md                   # Models documentation
+│
+├── views/                          # View templates
+│   ├── dashboard_modules_inline.php # Dashboard module views
+│   ├── error.php                   # Error page template
+│   ├── layout.php                  # Main layout template
+│   ├── profile_content.php         # Profile management UI
+│   ├── queries_content.php         # Dynamic queries UI
+│   ├── table_viewer_content.php    # Table viewer UI
+│   └── README.md                   # Views documentation
+│
+├── tests/                          # Testing suite
+│   └── test_session_analytics_fix.php
+│
+├── config/                         # Configuration files
+│   ├── config.php                  # Database configuration
+│   ├── config_environment.php      # Environment settings
+│   └── .htaccess                   # Apache configuration
+│
+├── Web Application Files           # Main application entry points
+│   ├── index.php                   # Application homepage
+│   ├── dashboard.php               # Dashboard interface
+│   ├── profile.php                 # Profile management
+│   ├── queries.php                 # Dynamic queries interface
+│   ├── error.log                   # Application logs
+│   └── README.md                   # Main documentation
 ```
 
 ## Database Design
