@@ -11,7 +11,7 @@ views/
 ├── README.md                    # This documentation file
 ├── layout.php                   # Main layout template (134 lines)
 ├── error.php                    # Error page template (114 lines)
-├── dashboard_modules_inline.php # Dashboard inline modules (1002 lines)
+├── dashboard_content.php        # Dashboard content modules (1002 lines)
 ├── profile_content.php          # Player profile content (320 lines)
 ├── queries_content.php          # Query tools content (105 lines)
 └── table_viewer_content.php     # Table viewer content (113 lines)
@@ -35,7 +35,7 @@ views/
 
 ### Content Templates
 
-- `dashboard_modules_inline.php`: Dashboard module content
+- `dashboard_content.php`: Dashboard module content
 
   - Player statistics module display
   - Session analytics module display

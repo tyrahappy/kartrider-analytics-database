@@ -2,6 +2,7 @@
 /**
  * Error View Template
  */
+require_once __DIR__ . '/../models/DatabaseService.php';
 ?>
 
 <div class="error-container">

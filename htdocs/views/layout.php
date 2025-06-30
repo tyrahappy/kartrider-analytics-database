@@ -98,7 +98,7 @@
             } elseif ($currentPage == 'queries.php') {
                 include __DIR__ . '/queries_content.php';
             } elseif ($currentPage == 'dashboard.php') {
-                include __DIR__ . '/dashboard_modules_inline.php';
+                include __DIR__ . '/dashboard_content.php';
             } elseif (isset($contentFile) && file_exists($contentFile)) {
                 include $contentFile;
             } else {

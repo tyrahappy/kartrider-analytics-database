@@ -9,39 +9,20 @@ This directory contains all model files for the project, responsible for data ac
 ```
 models/
 ├── README.md                    # This documentation file
-├── BaseModel.php                # Base model class
-├── PlayerModel.php              # Player data model
-├── RaceModel.php                # Race data model
-└── AchievementModel.php         # Achievement data model
+└── DatabaseService.php          # Database connection service (174 lines)
 ```
 
 ## Model Description
 
-### Base Model
+### Database Service
 
-- `BaseModel.php`: Base class for all models
-  - Provides database connection management
-  - Defines common CRUD operations
-  - Includes error handling mechanisms
-
-### Business Models
-
-- `PlayerModel.php`: Player-related data operations
-
-  - Player information queries and updates
-  - Player statistics data processing
-  - Player profile management
-
-- `RaceModel.php`: Race-related data operations
-
-  - Race record queries
-  - Race statistics calculations
-  - Track data analysis
-
-- `AchievementModel.php`: Achievement-related data operations
-  - Achievement information management
-  - Achievement completion statistics
-  - Achievement leaderboard processing
+- `DatabaseService.php`: Database connection and management service
+  - Database connection pool management
+  - Connection status monitoring
+  - Error handling and reconnection mechanisms
+  - Support for multiple database types
+  - Singleton pattern implementation
+  - PDO-based database operations
 
 ## Design Principles
 
@@ -65,57 +46,53 @@ models/
 
 ## Usage
 
-### Basic Operations
+### Database Service Operations
 
 ```php
-// Create model instance
-$playerModel = new PlayerModel();
+// Get database service instance
+$db = DatabaseService::getInstance();
 
-// Query data
-$players = $playerModel->getAllPlayers();
+// Check connection status
+if ($db->isConnected()) {
+    // Perform database operations
+}
 
-// Update data
-$playerModel->updatePlayer($playerId, $data);
+// Execute queries
+$results = $db->fetchAll("SELECT * FROM players");
+$single = $db->fetch("SELECT * FROM players WHERE id = ?", [$id]);
 
-// Delete data
-$playerModel->deletePlayer($playerId);
-```
-
-### Inheriting Base Class
-
-```php
-class CustomModel extends BaseModel {
-    public function customMethod() {
-        // Custom business logic
-    }
+// Transaction handling
+$db->beginTransaction();
+try {
+    $db->execute("INSERT INTO players (name) VALUES (?)", [$name]);
+    $db->commit();
+} catch (Exception $e) {
+    $db->rollback();
+    throw $e;
 }
 ```
 
-## Database Table Mapping
+## Database Connection Features
 
-### Player-Related Tables
+### Connection Management
 
-- `Player`: Basic player information
-- `PlayerCredentials`: Player authentication information
-- `RegisteredPlayer`: Registered player information
+- Singleton pattern for connection pooling
+- Automatic connection establishment
+- Connection status monitoring
+- Error handling and recovery
 
-### Race-Related Tables
+### Query Operations
 
-- `Race`: Race records
-- `Participation`: Participation records
-- `Track`: Track information
-- `Kart`: Kart information
-
-### Achievement-Related Tables
-
-- `Achievement`: Achievement definitions
-- `PlayerAchievement`: Player achievement records
+- Prepared statement support
+- Transaction management
+- Result fetching methods
+- Error logging and debugging
 
 ## Development Standards
 
 ### Naming Conventions
 
-- Model class names end with `Model`
+- Service class names end with `Service`
 - Method names use camelCase
 - Database field names use snake_case
 
@@ -133,15 +110,16 @@ class CustomModel extends BaseModel {
 
 ## Extension Guide
 
-### Adding New Models
+### Adding New Services
 
-1. Inherit from `BaseModel` class
-2. Implement necessary CRUD methods
-3. Add business logic methods
+1. Follow singleton pattern if needed
+2. Implement necessary database operations
+3. Add proper error handling
 4. Update related documentation
 
-### Database Migration
+### Database Configuration
 
-- Model changes require synchronized database structure
-- Provide data migration scripts
-- Maintain backward compatibility
+- Support for multiple database types
+- Connection pool configuration
+- Timeout and retry settings
+- Error log recording

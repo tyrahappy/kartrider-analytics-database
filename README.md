@@ -1,4 +1,3 @@
-
 # KartRider Analytics Database & Web Platform
 
 ![Database Version](https://img.shields.io/badge/Database-MySQL%208.0%2B-blue)
@@ -11,6 +10,7 @@
 **KartRider Analytics** is a full-stack database management and analytics web platform for a kart racing game. The project includes a relational database in **MySQL** and an interactive web application built with **PHP**, supporting player management, dynamic SQL queries, and game performance analytics.
 
 It demonstrates best practices in:
+
 - Database design (3NF/BCNF normalization)
 - CRUD operations (Create, Read, Update, Delete with cascade)
 - Analytical query building
@@ -54,34 +54,20 @@ kartrider-analytics-database-main/
 │   │   │   ├── SessionAnalyticsController.php      # Session analytics controller
 │   │   │   └── README.md                           # Dashboard controllers documentation
 
-│   ├── docs/                         # Project documentation
-│   │   ├── README.md                  # Documentation folder overview
-│   │   ├── REFACTOR_README.md         # Refactoring logs and notes
-│   │   ├── Conceptual_Design.pdf      # Conceptual ERD design document
-│   │   ├── Logical_Schema.pdf         # Relational schema design document
-│   │   ├── Normalization_Steps.pdf    # Database normalization step-by-step
-│   │   └── Final_Analytical_Report.pdf# Final analytical report with dashboard insights
+
 
 │   ├── includes/                     # Core backend services and utilities
 │   │   ├── AssetHelper.php            # Helper for static asset management
 │   │   ├── BaseController.php         # Base class for all controllers
-│   │   ├── DatabaseService.php        # Database connection service
 │   │   └── README.md                  # Includes folder documentation
 
-│   ├── legacy/                       # Backup files and deprecated versions
-│   │   ├── DashboardController_backup.php  # Backup of the dashboard controller
-│   │   ├── config_original_backup.php      # Backup of the original config
-│   │   └── README.md                       # Legacy folder documentation
 
-│   ├── models/                        # MVC data models representing database tables
-│   │   ├── AchievementModel.php        # Data model for achievements
-│   │   ├── BaseModel.php               # Base model class for shared functions
-│   │   ├── PlayerModel.php             # Data model for players
-│   │   ├── RaceModel.php               # Data model for races and sessions
+
+│   ├── models/                        # Database services and data models
+│   │   ├── DatabaseService.php         # Database connection service
 │   │   └── README.md                   # Models folder documentation
 
-│   ├── tests/                          # Test scripts and verification
-│   │   └── test_session_analytics_fix.php # Test for session analytics module
+
 ```
 
 ## Database Design
@@ -101,14 +87,15 @@ Achievement (M:M) ↔ Player (via PlayerAchievement)
 
 ### Table Categories
 
-| **Player Management**     | **Game Activities**   | **Game Assets**   |
-|---------------------------|------------------------|-------------------|
-| Player                    | Race                   | Kart              |
-| PlayerCredentials         | Participation          | KartDetails       |
-| RegisteredPlayer/GuestPlayer | LapRecord           | SpeedKart/ItemKart|
-| PlayerAchievement         |                        | Track, Achievement|
+| **Player Management**        | **Game Activities** | **Game Assets**    |
+| ---------------------------- | ------------------- | ------------------ |
+| Player                       | Race                | Kart               |
+| PlayerCredentials            | Participation       | KartDetails        |
+| RegisteredPlayer/GuestPlayer | LapRecord           | SpeedKart/ItemKart |
+| PlayerAchievement            |                     | Track, Achievement |
 
 ### Key Design Features
+
 - Fully normalized (3NF/BCNF)
 - Foreign keys with **ON DELETE CASCADE**
 - Check constraints for data validity (e.g., `FinishingRank BETWEEN 1 AND 8`)
@@ -117,11 +104,13 @@ Achievement (M:M) ↔ Player (via PlayerAchievement)
 ## Web Functionalities
 
 ### Profile Management (CRUD)
+
 - Register new player
 - Update player profile (username, email, profile picture)
 - Delete player with cascade (removes participation, achievements)
 
 ### Dynamic Query Module
+
 - **Join Query** – Top players with achievements
 - **Aggregation Query** – Average playtime & total achievements
 - **Nested Group-By** – Weekly playtime analysis
@@ -129,6 +118,7 @@ Achievement (M:M) ↔ Player (via PlayerAchievement)
 - **Custom Query** – Free SQL SELECT with safety constraints
 
 ### Dashboard Analytics
+
 - **Player Stats:** player counts, active rates, type distributions
 - **Session Stats:** race participation, kart usage, track difficulty
 - **Achievement Stats:** progress, rare achievements, completion rates
@@ -136,11 +126,13 @@ Achievement (M:M) ↔ Player (via PlayerAchievement)
 ## Installation Guide
 
 ### Prerequisites
+
 - MySQL 8.0+ or MariaDB 10.4+
 - Apache + PHP (XAMPP, MAMP, or PHP server)
 - phpMyAdmin (optional)
 
 ### 1.Quick Setup
+
 1. Import database schema:
    ```bash
    mysql -u username -p < kartrider_ddl.sql
@@ -154,6 +146,7 @@ Achievement (M:M) ↔ Player (via PlayerAchievement)
 4. Open browser: `http://localhost/dashboard.php`
 
 ### 2.Repository Setup
+
 bash# Clone the repository
 git clone https://github.com/tyrahappy/kartrider-analytics-database.git
 cd kartrider-analytics-database
@@ -161,6 +154,7 @@ cd kartrider-analytics-database
 ## Sample SQL Queries
 
 ### Player Performance
+
 ```sql
 SELECT pc.UserName, COUNT(*) AS TotalWins
 FROM Participation p
@@ -172,6 +166,7 @@ LIMIT 5;
 ```
 
 ### Kart Usage
+
 ```sql
 SELECT k.KartName, COUNT(*) AS UsageCount
 FROM Participation p
@@ -182,12 +177,14 @@ LIMIT 5;
 ```
 
 ### Race Distribution by Difficulty
+
 ```sql
 SELECT t.TrackDifficulty, COUNT(*) AS RaceCount
 FROM Race r
 JOIN Track t ON r.TrackName = t.TrackName
 GROUP BY t.TrackDifficulty;
 ```
+
 ## Additional Features
 
 Table Browser: Complete database exploration with search/sort
@@ -197,8 +194,8 @@ Security: Implemented secure user registration using prepared statements and par
 
 ## Dashboard Preview
 
-| Module        | Key Metrics                                |
-|----------------|--------------------------------------------|
+| Module        | Key Metrics                               |
+| ------------- | ----------------------------------------- |
 | Player Stats  | Total players, active players, win rates  |
 | Session Stats | Race counts, kart usage, track popularity |
 | Achievement   | Total achievements, rarest, completion %  |

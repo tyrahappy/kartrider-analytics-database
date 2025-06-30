@@ -14,7 +14,7 @@ KartRider Analytics is a web-based data analytics and management platform for ka
 ## Directory Structure
 
 ```
-PhpLab/
+htdocs/
 ├── index.php                # Main landing page (welcome + feature grid)
 ├── table_viewer.php         # Table viewer entry point
 ├── dashboard.php            # Data analytics dashboard entry point
@@ -25,11 +25,8 @@ PhpLab/
 ├── assets/                  # Static assets (CSS, JS, SQL)
 ├── controllers/             # MVC controllers
 ├── includes/                # Core includes and helpers
-├── models/                  # Data models
+├── models/                  # Database services
 ├── views/                   # View templates
-├── docs/                    # Project documentation
-├── legacy/                  # Legacy/backup files
-├── tests/                   # Test and verification scripts
 └── README.md                # Project overview (this file)
 ```
 
@@ -42,7 +39,7 @@ PhpLab/
 
 ## Documentation
 
-See the `docs/` directory for detailed documentation and refactoring notes.
+See the project documentation in the main README.md file for detailed information and setup instructions.
 
 ## License
 
