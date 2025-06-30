@@ -192,7 +192,7 @@ GROUP BY t.TrackDifficulty;
 
 Table Browser: Complete database exploration with search/sort
 Interactive Filters: Time period and demographic filtering
-Real-time Updates: Live data refresh with intelligent caching
+Real-time Updates: Designed live‑update dashboard architecture, with plans to integrate intelligent caching for performance
 Security: Enterprise-grade SQL injection prevention
 
 ## Dashboard Preview
