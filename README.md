@@ -59,17 +59,15 @@ kartrider-analytics-database-main/
 │   ├── includes/                     # Core backend services and utilities
 │   │   ├── AssetHelper.php            # Helper for static asset management
 │   │   ├── BaseController.php         # Base class for all controllers
-│   │   ├── DatabaseService.php        # Database connection service
 │   │   └── README.md                  # Includes folder documentation
 
-│   ├── views/                         # View templates and layouts
-│   │   ├── dashboard_content.php         # Dashboard view components
-│   │   ├── error.php                     # Error page template
-│   │   ├── layout.php                    # Main layout template
-│   │   ├── profile_content.php           # Profile management view
-│   │   ├── queries_content.php           # Query interface view
-│   │   ├── table_viewer_content.php      # Table viewer interface
-│   │   └── README.md                     # Views documentation
+
+
+│   ├── models/                        # Database services and data models
+│   │   ├── DatabaseService.php         # Database connection service
+│   │   └── README.md                   # Models folder documentation
+
+
 ```
 
 ## Database Design

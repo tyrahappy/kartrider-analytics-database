@@ -105,7 +105,7 @@ $playerTypeOptions = [
             <div class="no-data">
                 <h3>📭 No Data Available</h3>
                 <p>No data found for the selected filters. Try adjusting your filter settings.</p>
-                <p><a href="tests/database/fix_laprecord.php">🛠️ Check Data Fix Tool</a></p>
+                <p>🛠️ Data tools are currently unavailable</p>
             </div>
         <?php else: ?>
             <?php 

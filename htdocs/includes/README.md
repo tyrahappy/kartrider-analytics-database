@@ -10,7 +10,6 @@ This directory contains the core library files for the project, providing basic 
 includes/
 ├── README.md                    # This documentation file
 ├── BaseController.php           # Base controller class (148 lines)
-├── DatabaseService.php          # Database service class (174 lines)
 └── AssetHelper.php              # Asset helper class (91 lines)
 ```
 
@@ -23,14 +22,6 @@ includes/
   - Handles page titles and error messages
   - Manages database connections
   - Provides view rendering methods
-
-### Database Service
-
-- `DatabaseService.php`: Database connection and management service
-  - Database connection pool management
-  - Connection status monitoring
-  - Error handling and reconnection mechanisms
-  - Support for multiple database types
 
 ### Asset Helper
 
@@ -78,19 +69,6 @@ class CustomController extends BaseController {
 }
 ```
 
-### Database Service
-
-```php
-// Get database connection
-$db = new DatabaseService();
-$pdo = $db->getConnection();
-
-// Check connection status
-if ($db->isConnected()) {
-    // Perform database operations
-}
-```
-
 ### Asset Helper
 
 ```php
@@ -120,8 +98,6 @@ BaseController
 ### Service Dependencies
 
 ```
-DatabaseService (Database connection)
-    ↓
 BaseController (Basic functionality)
     ↓
 Specific Controllers (Business logic)

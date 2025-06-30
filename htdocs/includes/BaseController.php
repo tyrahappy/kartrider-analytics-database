@@ -6,7 +6,7 @@
  * across all controllers in the application.
  */
 
-require_once __DIR__ . '/DatabaseService.php';
+require_once __DIR__ . '/../models/DatabaseService.php';
 
 class BaseController {
     protected $db;
