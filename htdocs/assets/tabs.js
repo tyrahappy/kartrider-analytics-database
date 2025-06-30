@@ -1,6 +1,6 @@
 /**
- * 智能标签导航系统 - 通用JavaScript功能
- * 适用于所有模块的标签导航
+ * Smart Tab Navigation System - Universal JavaScript functionality
+ * Applicable to tab navigation across all modules
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -20,11 +20,11 @@ function initializeTabSystems() {
             const totalTabsWidth = Array.from(tabs).reduce((total, tab) => total + tab.offsetWidth, 0);
             const hasScrolling = totalTabsWidth > containerWidth;
 
-            // 如果标签太多导致需要滚动，添加滚动指示器
+            // If too many tabs require scrolling, add scroll indicators
             if (hasScrolling) {
                 tabsContainer.classList.add('scrollable');
 
-                // 添加滚动到当前活动标签的功能
+                // Add functionality to scroll to the currently active tab
                 const activeTab = tabsContainer.querySelector('.tab.active');
                 if (activeTab) {
                     setTimeout(() => {
@@ -40,19 +40,19 @@ function initializeTabSystems() {
             }
         }
 
-        // 初始化和窗口调整时优化布局
+        // Initialize and optimize layout on window resize
         optimizeTabLayout();
 
-        // 防抖的 resize 事件监听器
+        // Debounced resize event listener
         let resizeTimeout;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(optimizeTabLayout, 150);
         });
 
-        // 为标签添加键盘导航支持
+        // Add keyboard navigation support for tabs
         tabs.forEach((tab, index) => {
-            // 添加 tabindex 以支持键盘导航
+            // Add tabindex to support keyboard navigation
             if (!tab.hasAttribute('tabindex')) {
                 tab.setAttribute('tabindex', '0');
             }
@@ -80,7 +80,7 @@ function initializeTabSystems() {
                 }
             });
 
-            // 鼠标悬停时显示提示信息
+            // Show tooltip on mouse hover
             tab.addEventListener('mouseenter', function () {
                 if (tab.scrollWidth > tab.offsetWidth) {
                     tab.setAttribute('title', tab.textContent.trim());
@@ -88,7 +88,7 @@ function initializeTabSystems() {
             });
         });
 
-        // 添加触摸支持（移动端）
+        // Add touch support (mobile devices)
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -102,7 +102,7 @@ function initializeTabSystems() {
         });
 
         function handleSwipe() {
-            const swipeThreshold = 50; // 最小滑动距离
+            const swipeThreshold = 50; // Minimum swipe distance
             const activeTab = tabsContainer.querySelector('.tab.active');
 
             if (!activeTab) return;
@@ -110,14 +110,14 @@ function initializeTabSystems() {
             const activeIndex = Array.from(tabs).indexOf(activeTab);
 
             if (touchEndX < touchStartX - swipeThreshold) {
-                // 向左滑动 - 切换到下一个标签
+                // Swipe left - switch to next tab
                 if (activeIndex < tabs.length - 1) {
                     tabs[activeIndex + 1].click();
                 }
             }
 
             if (touchEndX > touchStartX + swipeThreshold) {
-                // 向右滑动 - 切换到上一个标签
+                // Swipe right - switch to previous tab
                 if (activeIndex > 0) {
                     tabs[activeIndex - 1].click();
                 }
@@ -126,7 +126,7 @@ function initializeTabSystems() {
     });
 }
 
-// 工具函数：平滑滚动到指定标签
+// Utility function: Smooth scroll to specified tab
 function scrollToTab(tabElement) {
     if (tabElement) {
         tabElement.scrollIntoView({
@@ -137,7 +137,7 @@ function scrollToTab(tabElement) {
     }
 }
 
-// 工具函数：设置活动标签
+// Utility function: Set active tab
 function setActiveTab(tabsContainer, activeTabIndex) {
     const tabs = tabsContainer.querySelectorAll('.tab');
 
@@ -151,7 +151,7 @@ function setActiveTab(tabsContainer, activeTabIndex) {
     });
 }
 
-// 导出供其他脚本使用
+// Export for use by other scripts
 window.TabSystem = {
     initializeTabSystems,
     scrollToTab,

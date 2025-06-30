@@ -25,11 +25,9 @@ PhpLab/
 ├── assets/                  # Static assets (CSS, JS, SQL)
 ├── controllers/             # MVC controllers
 ├── includes/                # Core includes and helpers
-├── models/                  # Data models
 ├── views/                   # View templates
-├── docs/                    # Project documentation
-├── legacy/                  # Legacy/backup files
-├── tests/                   # Test and verification scripts
+
+├── views/                   # View templates
 └── README.md                # Project overview (this file)
 ```
 
@@ -42,7 +40,7 @@ PhpLab/
 
 ## Documentation
 
-See the `docs/` directory for detailed documentation and refactoring notes.
+See the main `README.md` file for detailed project documentation and setup instructions.
 
 ## License
 
