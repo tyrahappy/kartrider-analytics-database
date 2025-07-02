@@ -66,17 +66,6 @@ $playerTypeOptions = [
                     </select>
                 </div>
                 
-                <div class="filter-group">
-                    <label for="player_type">Player Type:</label>
-                    <select name="player_type" id="player_type">
-                        <?php foreach ($playerTypeOptions as $value => $label): ?>
-                            <option value="<?= htmlspecialchars($value) ?>" <?= $playerTypeFilter === $value ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($label) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                
                 <button type="submit" class="filter-btn">Apply Filters</button>
             </form>
         </div>
@@ -88,8 +77,7 @@ $playerTypeOptions = [
         <div class="dashboard-header">
             <h2><?= htmlspecialchars($modules[$selectedModule] ?? 'Dashboard') ?></h2>
             <div class="filter-info">
-                📅 <?= htmlspecialchars($timeFilterOptions[$timeFilter]) ?> | 
-                👤 <?= htmlspecialchars($playerTypeOptions[$playerTypeFilter]) ?>
+                📅 <?= htmlspecialchars($timeFilterOptions[$timeFilter]) ?>
             </div>
         </div>
 
