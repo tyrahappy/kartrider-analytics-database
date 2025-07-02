@@ -200,7 +200,7 @@ Security: Implemented secure user registration using prepared statements and par
 | Session Stats | Race counts, kart usage, track popularity |
 | Achievement   | Total achievements, rarest, completion %  |
 
-> With filters by time range and player type.
+> With filters by time range.
 
 ## Performance Metris
 
